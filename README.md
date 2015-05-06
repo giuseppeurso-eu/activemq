@@ -71,10 +71,12 @@ Example 04: rest-producer
 Messaging example using the Active MQ REST APIs.
 
 - Consumer
+
 The example uses the DefaultMessageListenerContainer of spring framework for the JMS Consumer. The Consumer is created through the Spring beans context which 
 automatically instantiates the message listener when you run the example.
 
 - Producer
+
 The Producer consists of a series of regular HTTP POST which send messages to a queue named "Coda01" as JSON format.
 The messages are published on the ActiveMQ Server using the RESTful API implementation. A numbers of messages can be produced by sending a POST request to the
 server with Basic Authentication. The ActiveMQ RESTful API is available by default at:
@@ -85,21 +87,19 @@ http://your_server_amq:8161/api/message
 ### For example, you can produce by sending a POST request to the server, like:
 > curl -u admin:admin -H "Content-Type: application/json" -d '{"myMessage":"this is the message"}' http://localhost:8161/api/message/Coda01?type=queue
 ```
+Finally , messages are processed from the Consumer in asynchronous manner.
 
 - Run example
 ``` 
-$ cd amq-example
+$ cd rest-producer
 $ mvn clean compile
 $ mvn exec:java -Dexec.args="[AMQ_HOST] [NUMBER_OF_MESSAGES]"
-
-### For example, the following sends 10 messages to the localhost AMQ Server:
+```
+For example, the following sends 10 messages to the localhost AMQ Server
+```
 $ mvn exec:java -Dexec.args="localhost 10"
 ```
 Press CTRL+X to finish
-
-
-
-Finally , messages are processed from the Consumer in asynchronous manner.
 
 
 **LINK** 
