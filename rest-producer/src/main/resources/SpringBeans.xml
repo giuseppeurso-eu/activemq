@@ -16,14 +16,13 @@
 	
 	<bean id="consumerListener" class="eu.giuseppeurso.activemq.restproducer.Consumer" />
 	
-	<!-- The message listener for the CONSUMERs -->
+	<!-- The message listener for the CONSUMERs using Spring DefMesLisCont (DMLC)-->
 	<bean id="firstConsumer"
 		class="org.springframework.jms.listener.DefaultMessageListenerContainer">
 		<property name="connectionFactory" ref="jmsConnectionFactory" />
 		<property name="destination" ref="firstDest" />
 		<property name="messageListener" ref="consumerListener" />
 	</bean>
-	<!-- Spring DMLC -->
 	<bean id="secondConsumer"
 		class="org.springframework.jms.listener.DefaultMessageListenerContainer">
 		<property name="connectionFactory" ref="jmsConnectionFactory" />
