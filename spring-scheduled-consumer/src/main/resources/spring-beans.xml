@@ -1,0 +1,59 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<bean id="jmsConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+		<property name="brokerURL" value="tcp://localhost:61616" />
+		<property name="userName" value="amqsystem"/>
+         <property name="password" value="sviluppo12345"/>
+	</bean>
+
+	<bean id="firstDest" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg value="QUEUE.SAMPLE01" />
+	</bean>
+	
+	<!-- PRODUCER -->
+	<bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+		<property name="connectionFactory" ref="jmsConnectionFactory" />
+	</bean>
+	<bean id="producer" class="eu.giuseppeurso.activemq.scheduledconsumer.Producer">
+		<property name="template" ref="jmsTemplate" />
+		<property name="destinations">
+			<list>
+				<ref local="firstDest" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- CONSUMER -->
+	<bean id="consumerListener" class="eu.giuseppeurso.activemq.scheduledconsumer.Consumer" />
+	<!-- Spring DMLC -->
+	<bean id="firstConsumer"
+		class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+		<property name="connectionFactory" ref="jmsConnectionFactory" />
+		<property name="destination" ref="firstDest" />
+		<property name="messageListener" ref="consumerListener" />
+		<property name="autoStartup" value="false"/>
+	</bean>
+	
+	<!-- QUARTZ SCHEDULER (Start Job) -->
+	<bean id="jobConsumerStart" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="consumerListener" />
+		<property name="targetMethod" value="startConsumption" />
+	</bean>
+	<bean id="cronConsumerStart" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="jobConsumerStart" />
+		<property name="cronExpression" value="0 7 18 * * ?" />
+	</bean>
+	<!-- QUARTZ SCHEDULER (Stop Job) -->
+	<bean id="jobConsumerStop" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="consumerListener" />
+		<property name="targetMethod" value="stopConsumption" />
+	</bean>
+	<bean id="cronConsumerStop" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="jobConsumerStop" />
+		<property name="cronExpression" value="0 8 18 * * ?" />
+	</bean>
+	
+</beans>
