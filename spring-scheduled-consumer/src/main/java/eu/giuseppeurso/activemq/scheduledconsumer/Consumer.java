@@ -1,11 +1,11 @@
 package eu.giuseppeurso.activemq.scheduledconsumer;
 
 import javax.jms.JMSException;
-import javax.jms.MapMessage;
 import javax.jms.Message;
 import javax.jms.MessageListener;
+import javax.jms.TextMessage;
 
-import org.apache.activemq.command.ActiveMQMapMessage;
+import org.apache.activemq.command.ActiveMQTextMessage;
 import org.apache.log4j.Logger;
 import org.springframework.jms.listener.DefaultMessageListenerContainer;
 
@@ -17,51 +17,44 @@ import org.springframework.jms.listener.DefaultMessageListenerContainer;
 public class Consumer implements MessageListener {
 
 	private static Logger _log = Logger.getLogger(Consumer.class);
-	
-	private Object consumerListener;
-	
-    /**
-	 * @return the consumerListener
+	private Object sampleListener;
+
+	/**
+	 * @return the sampleListener
 	 */
-	public Object getConsumerListener() {
-		return consumerListener;
+	public Object getSampleListener() {
+		return sampleListener;
 	}
 
 	/**
-	 * @param consumerListener the consumerListener to set
+	 * @param sampleListener the sampleListener to set
 	 */
-	public void setConsumerListener(Object consumerListener) {
-		this.consumerListener = consumerListener;
+	public void setSampleListener(Object sampleListener) {
+		this.sampleListener = sampleListener;
 	}
-
 
 	/**
 	 * The onMessage() listener.
 	 */
 	public void onMessage(Message message)
     {
+		 _log.info("Consuming message...");
         try
         {
-            if (message instanceof MapMessage) {
-            	MapMessage mapMessage = (MapMessage)message;
-                String description = ((ActiveMQMapMessage)mapMessage).getContentMap().toString();
-                _log.debug("Message map received >> " + description);
-                try {
-					Thread.sleep((long)(1000+Math.random()*4000));
-				} catch (InterruptedException e) {	}
-                _log.debug("Message map processed >> " + description);
+        	if (message instanceof TextMessage) {
+        		String content = ((ActiveMQTextMessage)message).getText();
+                _log.info("Message received >> " + content);
+                _log.info("Message JMS Correlation ID >> " + message.getJMSCorrelationID());
             } else {
-            	_log.debug("Invalid message received");
+            	_log.info("Invalid message received");
             }
         }
         catch (JMSException e)
         {
-            System.out.println("Caught:" + e);
-            e.printStackTrace();
+        	_log.error("Caught:" + e);
+            
         }
     }
-
-    
     
     /**
 	 * The method invoked by the Quartz MethodInvokingJobDetailFactoryBean in order to start a scheduled message consumption
@@ -69,7 +62,7 @@ public class Consumer implements MessageListener {
 	 */
 	public void startConsumption(){
 		_log.info("Starting the Consumer...");
-		((DefaultMessageListenerContainer) getConsumerListener()).start();
+		((DefaultMessageListenerContainer) getSampleListener()).start();
 		_log.info("JOB STARTED!");
 	}
 	
@@ -79,7 +72,7 @@ public class Consumer implements MessageListener {
 	 */
 	public void stopConsumption(){
 		_log.debug("Stopping the Consumer... ");
-		((DefaultMessageListenerContainer) getConsumerListener()).stop();
+		((DefaultMessageListenerContainer) getSampleListener()).stop();
 		_log.info("JOB FINISHED!");
 	}
 	

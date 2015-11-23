@@ -8,12 +8,12 @@
             <param value="%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p - %m%n" name="conversionPattern"/>
         </layout>
     </appender>
-    <logger name="eu.giuseppeurso.activemq.scheduledconsumer">
-        <level value="debug"/>
-        <appender-ref ref="CONSOLE"/>
-    </logger>
     <root>
         <level value="info"/>
         <appender-ref ref="CONSOLE"/>
     </root>
+    <logger name="eu.giuseppeurso.activemq.scheduledconsumer">
+        <level value="debug"/>
+    </logger>
+    
 </log4j:configuration>
