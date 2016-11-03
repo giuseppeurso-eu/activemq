@@ -46,7 +46,7 @@ public class CamelExecutor {
 				Thread.sleep(waitForFile);
 			}
 		} catch (Exception e) {
-			System.out.println("Unable to initialize CamelContext for the Invoice Importer: " + e);
+			System.out.println("Unable to initialize CamelContext: " + e);
 			return;
 		}
 	}
