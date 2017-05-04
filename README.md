@@ -11,8 +11,6 @@ source available under the same terms. V3 is similar to V2, but further
 restricts use in hardware that forbids software alterations (see LICENSE.txt).
 
 
-## JMS and ACTIVE MQ EXAMPLES
-
 
 **Requirements**
 
@@ -29,7 +27,7 @@ $ mvn clean compile
 http://localhost:8161/admin/
 admin / admin
 
-#### Example 01: async-queues-failover
+## Example 01: async-queues-failover
 ----------------------------------
 Point-to-point messaging. The Producer creates 2 queues and sends messages to a Master/Slave AMQ Broker using the failover protocol.
 Messages are processed from a Consumer in an asynchronous manner.
