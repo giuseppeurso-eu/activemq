@@ -1,4 +1,4 @@
-# Code examples about Java Message Service and Apache Active MQ
+# Code examples about Java JMS and Apache Active MQ
 
 This repository contains the source code of some java samples which could refer to:
 
