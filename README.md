@@ -1,10 +1,10 @@
-====================================================================
-Code examples about Java Message Service and Apache Active MQ message broker
-====================================================================
+
+# Code examples about Java Message Service and Apache Active MQ message broker
+
 **Giuseppe Urso - GITHUB**
 
 Url: https://github.com/giuseppeurso-eu/ 
-===========================================================
+====
 
 This repository contains the source code of some java samples which could refer to:
 
@@ -16,9 +16,9 @@ requires anyone who distributes code or a derivative work to make the
 source available under the same terms. V3 is similar to V2, but further
 restricts use in hardware that forbids software alterations (see LICENSE.txt).
 
-=================================
-JMS and ACTIVE MQ EXAMPLES
-=================================
+
+# JMS and ACTIVE MQ EXAMPLES
+
 
 **Requirements**
 
