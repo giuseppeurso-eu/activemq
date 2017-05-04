@@ -10,25 +10,19 @@ requires anyone who distributes code or a derivative work to make the
 source available under the same terms. V3 is similar to V2, but further
 restricts use in hardware that forbids software alterations (see LICENSE.txt).
 
-
+-------------
 
 **Requirements**
 
 Apache Maven 2.+
+
 Java 1.6+
+
 Active _MQ 5.8+
 
-**Compile Source**
-```
-$ mvn clean compile
-```
-**Active MQ Console**
-
-http://localhost:8161/admin/
-admin / admin
 
 ## Example 01: async-queues-failover
-----------------------------------
+
 Point-to-point messaging. The Producer creates 2 queues and sends messages to a Master/Slave AMQ Broker using the failover protocol.
 Messages are processed from a Consumer in an asynchronous manner.
 ```
