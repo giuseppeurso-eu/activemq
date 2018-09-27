@@ -1,6 +1,6 @@
-> This repository is no longer updated, the source code has moved to GitLab:
+## This repository is no longer updated, the source code has moved to GitLab:
 
-> https://gitlab.com/giuseppeurso-eu/activemq
+https://gitlab.com/giuseppeurso-eu/activemq
 
 # Code examples about Java JMS and Apache Active MQ
 
